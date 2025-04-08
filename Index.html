@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Visitante - Controle de Acesso</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+         :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --danger-color: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .navbar {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .form-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .form-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .form-section h4 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .required-label::after {
+            content: " *";
+            color: var(--danger-color);
+        }
+        
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            padding: 10px 20px;
+            font-weight: 500;
+        }
+        
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+        
+        .logo {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        
+        .is-invalid {
+            border-color: var(--danger-color);
+        }
+        
+        .invalid-feedback {
+            color: var(--danger-color);
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 768px) {
+            .form-section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: var(--primary-color);">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <img src="images/logo.png" alt="Logo" class="logo">
+                <a class="navbar-brand" href="Agenda.html">Controle de Acesso</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Agenda.html"><i class="bi bi-calendar-check"></i> Agenda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="visitor.html"><i class="bi bi-person-plus"></i> Registrar Visita</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-clock-history"></i> Histórico</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-4">
+        <div class="form-container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="text-primary mb-0"><i class="bi bi-person-plus"></i> Registro de Visita</h2>
+                <span class="badge bg-secondary py-2 px-3"><i class="bi bi-asterisk"></i> Campos obrigatórios</span>
+            </div>
+
+            <form id="registroForm" novalidate>
+                <!-- Seção 1: Informações Pessoais -->
+                <div class="form-section">
+                    <h4><i class="bi bi-person-lines-fill me-2"></i>Informações Pessoais</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="nomeCompleto" class="form-label required-label">Nome Completo</label>
+                            <input type="text" class="form-control" id="nomeCompleto" required>
+                            <div class="invalid-feedback">Por favor, informe o nome completo.</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="genero" class="form-label required-label">Gênero</label>
+                            <select class="form-select" id="genero" required>
+                                <option value="" selected disabled>Selecione...</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="feminino">Feminino</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                            <div class="invalid-feedback">Por favor, selecione o gênero.</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="nacionalidade" class="form-label">Nacionalidade</label>
+                            <input type="text" class="form-control" id="nacionalidade">
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-2">
+                        <div class="col-md-6">
+                            <label for="cargo" class="form-label required-label">Cargo/Função</label>
+                            <input type="text" class="form-control" id="cargo" required>
+                            <div class="invalid-feedback">Por favor, informe o cargo/função.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="empresa" class="form-label required-label">Empresa</label>
+                            <input type="text" class="form-control" id="empresa" required>
+                            <div class="invalid-feedback">Por favor, informe a empresa.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção 2: Documentação -->
+                <div class="form-section">
+                    <h4><i class="bi bi-card-checklist me-2"></i>Documentação</h4>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="tipoDocumento" class="form-label required-label">Tipo de Documento</label>
+                            <select class="form-select" id="tipoDocumento" required>
+                                <option value="" selected disabled>Selecione...</option>
+                                <option value="bi">Bilhete de Identidade</option>
+                                <option value="passaporte">Passaporte</option>
+                                <option value="dir">Documento de Identificação Residente</option>
+                                <option value="carta">Carta de Condução</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                            <div class="invalid-feedback">Por favor, selecione o tipo de documento.</div>
+                        </div>
+                        <div class="col-md-5">
+                            <label for="numeroDocumento" class="form-label required-label">Número do Documento</label>
+                            <input type="text" class="form-control" id="numeroDocumento" required>
+                            <div class="invalid-feedback">Por favor, informe o número do documento.</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="validadeDocumento" class="form-label">Validade</label>
+                            <input type="date" class="form-control" id="validadeDocumento">
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-2">
+                        <div class="col-md-6">
+                            <label for="emissorDocumento" class="form-label">Emissor do Documento</label>
+                            <input type="text" class="form-control" id="emissorDocumento" placeholder="Ex: SEF, DGPJ">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="contacto" class="form-label required-label">Contacto Telefónico</label>
+                            <input type="tel" class="form-control" id="contacto" required>
+                            <div class="invalid-feedback">Por favor, informe o contacto telefónico.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção 3: Detalhes da Visita -->
+                <div class="form-section">
+                    <h4><i class="bi bi-calendar-event me-2"></i>Detalhes da Visita</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="departamento" class="form-label required-label">Departamento</label>
+                            <select class="form-select" id="departamento" required>
+                                <option value="" selected disabled>Selecione o departamento...</option>
+                                <option value="procurement">Procurement</option>
+                                <option value="finance">Finance</option>
+                                <option value="it">Informatic Technology</option>
+                                <option value="hr">Human Resources and Admin</option>
+                                <option value="safety">Safety</option>
+                                <option value="logistic">Logistic</option>
+                                <option value="dispatch">Dispatch</option>
+                                <option value="maintance">Maintance</option>
+                                <option value="production">Production</option>
+                            </select>
+                            <div class="invalid-feedback">Por favor, selecione o departamento.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="responsavel" class="form-label required-label">Responsável Interno</label>
+                            <input type="text" class="form-control" id="responsavel" required>
+                            <div class="invalid-feedback">Por favor, informe o responsável interno.</div>
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-2">
+                        <div class="col-md-4">
+                            <label for="dataVisita" class="form-label required-label">Data</label>
+                            <input type="date" class="form-control" id="dataVisita" required>
+                            <div class="invalid-feedback">Por favor, informe a data da visita.</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="horaEntrada" class="form-label required-label">Hora de Entrada</label>
+                            <input type="time" class="form-control" id="horaEntrada" required>
+                            <div class="invalid-feedback">Por favor, informe a hora de entrada.</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="horaSaida" class="form-label">Hora de Saída (Prevista)</label>
+                            <input type="time" class="form-control" id="horaSaida">
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-2">
+                        <div class="col-12">
+                            <label for="motivoVisita" class="form-label required-label">Motivo da Visita</label>
+                            <textarea class="form-control" id="motivoVisita" rows="2" required></textarea>
+                            <div class="invalid-feedback">Por favor, descreva o motivo da visita.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção 4: Viatura -->
+                <div class="form-section">
+                    <h4><i class="bi bi-car-front-fill me-2"></i>Informação de Viatura</h4>
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="temViatura">
+                                <label class="form-check-label" for="temViatura">Traz viatura?</label>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <label for="matricula" class="form-label">Matrícula</label>
+                            <input type="text" class="form-control" id="matricula" disabled>
+                        </div>
+                        <div class="col-md-5">
+                            <label for="marcaModelo" class="form-label">Marca/Modelo</label>
+                            <input type="text" class="form-control" id="marcaModelo" disabled>
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-2">
+                        <div class="col-md-6">
+                            <label for="corViatura" class="form-label">Cor da Viatura</label>
+                            <input type="text" class="form-control" id="corViatura" disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="observacoesViatura" class="form-label">Observações</label>
+                            <input type="text" class="form-control" id="observacoesViatura" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção 5: Termos e Submissão -->
+                <div class="form-section bg-light">
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="aceitarTermos" required>
+                        <label class="form-check-label" for="aceitarTermos">
+                            Declaro que as informações fornecidas são verdadeiras e aceito os <a href="#" class="text-primary">termos de uso</a> do sistema.
+                        </label>
+                        <div class="invalid-feedback">Você deve aceitar os termos para continuar.</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="reset" class="btn btn-outline-secondary px-4">
+                            <i class="bi bi-x-circle me-2"></i> Limpar
+                        </button>
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-check-circle me-2"></i> Registrar Visita
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">© 2023 Sistema de Controle de Acesso</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Versão 2.0.0</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Habilitar/desabilitar campos de viatura
+            $('#temViatura').change(function() {
+                const isChecked = $(this).is(':checked');
+                $('#matricula, #marcaModelo, #corViatura, #observacoesViatura').prop('disabled', !isChecked);
+
+                if (!isChecked) {
+                    $('#matricula, #marcaModelo, #corViatura, #observacoesViatura').val('');
+                }
+            });
+
+            // Validação do formulário
+            $('#registroForm').on('submit', function(e) {
+                e.preventDefault();
+
+                let formIsValid = true;
+
+                // Validar todos os campos obrigatórios
+                $(this).find('[required]').each(function() {
+                    if ($(this).is(':checkbox') && !$(this).is(':checked')) {
+                        $(this).addClass('is-invalid');
+                        formIsValid = false;
+                    } else if ($(this).val() === '' || $(this).val() === null) {
+                        $(this).addClass('is-invalid');
+                        formIsValid = false;
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
+                });
+
+                if (formIsValid) {
+                    // Criar objeto com os dados da visita
+                    const visita = {
+                        id: Date.now(),
+                        nome: $('#nomeCompleto').val(),
+                        empresa: $('#empresa').val(),
+                        documento: $('#tipoDocumento').val() + ': ' + $('#numeroDocumento').val(),
+                        departamento: $('#departamento').val(),
+                        responsavel: $('#responsavel').val(),
+                        data: $('#dataVisita').val(),
+                        hora: $('#horaEntrada').val(),
+                        horaSaida: $('#horaSaida').val(),
+                        motivo: $('#motivoVisita').val(),
+                        viatura: $('#temViatura').is(':checked') ? {
+                            matricula: $('#matricula').val(),
+                            marcaModelo: $('#marcaModelo').val(),
+                            cor: $('#corViatura').val(),
+                            observacoes: $('#observacoesViatura').val()
+                        } : null,
+                        status: 'Agendado',
+                        dataRegistro: new Date().toISOString()
+                    };
+
+                    // Salvar no localStorage
+                    let visitas = JSON.parse(localStorage.getItem('visitas')) || [];
+                    visitas.push(visita);
+                    localStorage.setItem('visitas', JSON.stringify(visitas));
+
+                    // Redirecionar para a agenda com mensagem de sucesso
+                    window.location.href = 'Agenda.html?registro=success';
+                } else {
+                    // Rolagem para o primeiro erro
+                    $('html, body').animate({
+                        scrollTop: $('.is-invalid').first().offset().top - 100
+                    }, 500);
+                }
+            });
+
+            // Remover validação quando o usuário começar a digitar
+            $('input, select, textarea').on('input change', function() {
+                if ($(this).val() !== '' || $(this).is(':checked')) {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
